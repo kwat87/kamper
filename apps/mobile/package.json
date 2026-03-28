@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@kamper/shared": "workspace:*",
+    "@supabase/supabase-js": "^2.100.1",
     "expo": "55.0.10-canary-20260328-2049187",
     "expo-status-bar": "55.0.5-canary-20260328-2049187",
     "react": "19.2.0",
