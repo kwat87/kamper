@@ -1,11 +1,14 @@
 [phases.setup]
-nixPkgs = ["nodejs_20"]
+nixPkgs = ["nodejs_20", "nodePackages.pnpm"]
 
 [phases.install]
-cmds = ["npm install -g pnpm", "pnpm install --frozen-lockfile"]
+cmds = ["pnpm install --frozen-lockfile"]
 
 [phases.build]
-cmds = ["pnpm --filter @kamper/shared build", "pnpm --filter @kamper/web build"]
+cmds = [
+  "pnpm --filter @kamper/shared build",
+  "pnpm --filter @kamper/web build"
+]
 
 [start]
 cmd = "pnpm --filter @kamper/web start"
