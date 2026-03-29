@@ -14,11 +14,14 @@ export interface Camper {
   updatedAt: string
 }
 
+export type EnrollmentStatus = 'active' | 'pending' | 'rejected'
+
 /** Links a camper to a program (the roster) */
 export interface Enrollment {
   id: string
   camperId: string
   programId: string
+  status: EnrollmentStatus
   enrolledAt: string
 }
 
