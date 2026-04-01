@@ -4,8 +4,17 @@ import { NextRequest, NextResponse } from 'next/server'
 import type { EmailOtpType } from '@supabase/supabase-js'
 
 export async function GET(request: NextRequest) {
-  const { searchParams, origin } = new URL(request.url)
+  const { searchParams } = new URL(request.url)
   const next = searchParams.get('next') ?? '/dashboard'
+
+  // Use APP_URL env var so Railway's internal proxy doesn't affect the redirect.
+  // Falls back to the forwarded host header, then the request origin.
+  const host =
+    process.env.APP_URL ??
+    (request.headers.get('x-forwarded-proto') && request.headers.get('x-forwarded-host')
+      ? `${request.headers.get('x-forwarded-proto')}://${request.headers.get('x-forwarded-host')}`
+      : new URL(request.url).origin)
+  const origin = host.replace(/\/$/, '')
 
   // PKCE flow (default with new Supabase publishable keys)
   const code = searchParams.get('code')
